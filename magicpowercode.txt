@@ -1,0 +1,49 @@
+def M2(psiout):
+    traces=[]
+    I=np.array([[1,0],[0,1]])
+    X=np.array([[0,1],[1,0]])
+    Y=np.array([[0,-1j],[1j,0]])
+    Z=np.array([[1,0],[0,-1]])
+    pauli=np.array([I,X,Y,Z])
+    # print(pauli.shape)
+    # print(pauli[3])
+    
+    rho=np.outer(psiout,psiout.conj())
+    
+    for i in range(4):
+        for j in range(4):
+            # print('i',i,' j',j)
+            P=np.kron(pauli[i],pauli[j])
+            # print('P shape',P.shape)
+            trace=np.trace(rho@P)**4
+            traces.append(trace)
+    xi2=1/4*np.sum(traces)
+    return -np.log(xi2)
+
+
+# variables for state evolution, a is energy state splitting, mu is interaction strength, t is time
+a=1
+mu_list=np.linspace(0,2,4)
+t_list=np.linspace(0,20,400)
+
+plt.figure(figsize=(10,4))
+
+for k, mu in enumerate(mu_list) :
+    magicpower_list = []
+    for n, t in enumerate(t_list) :
+        # get each stabiliser state, evolve it
+        magic_list=[]
+        for i in range(60): # because we want the intially non-magic states, so all the stabiliser states
+            psiin = ss[i,:] # ith state
+            psiout = Smatrix(a,mu,t)@psiin
+            magic_list.append(M2(psiout))
+        
+        # magic power is average magic induced in all stabiliser states
+        magicpower = sum(np.array(magic_list))/60 # this is avg magic power for a particular time and particular mu
+        magicpower_list.append(magicpower)
+    
+    plt.plot(t_list,magicpower_list,label=f"mu={mu}")
+plt.legend()
+plt.xlabel('t')
+plt.ylabel('magic power of S matrix')
+plt.show()

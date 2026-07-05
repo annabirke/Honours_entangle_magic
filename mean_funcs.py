@@ -74,3 +74,18 @@ def state(points, U_0, t_list, mu):
 
     state=np.array([L*L,L*R,L*R,R*R])
     return state
+
+def N_L(points, U_0, t_list, mu):
+    state_ = state(points, U_0, t_list, mu)
+    NL = np.array([[2,0,0,0],
+            [0,1,0,0],
+            [0,0,1,0],
+            [0,0,0,0]])
+    exNL=[]
+    for n, t in enumerate(t_list) :
+        state_t = np.array(state_[:,n])
+        exNL.append(state_t.conj().T @ NL @ state_t)
+    
+    exNL=np.array(exNL)
+    return exNL
+    

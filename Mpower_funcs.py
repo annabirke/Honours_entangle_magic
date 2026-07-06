@@ -40,15 +40,18 @@ def Mpower_inout(a,mu_list,t_list,psi,ylim,savetrue,savename,colourline,mode="in
             if mode == "in":
                 psiout = toymodel_funcs.Evolve(a, mu, t) @ psi
                 magic = M2(psiout)
+                # print(f'imag magic {abs(magic.imag):.3g}')
+                magic=complex(magic.real, 0 if abs(magic.imag) < 1e-10 else magic.imag) # removes tiny imaginary components 
             
             elif mode == "out":
                 # now check if psiout is a 4dim vector, or already a 4x1000 object for each timestep 
                 if psi.ndim == 2:
-                    psi_t = psi[:, n]
+                    psi_t = psi[:, n] # this makes sure we only take the correct slice of psiout, ie at the correct timestep
                 else:
                     psi_t = psi
-                # this makes sure we only take the correct slice of psiout, ie at the correct timestep
+                
                 magic = M2(psi_t) 
+                magic=complex(magic.real, 0 if abs(magic.imag) < 1e-10 else magic.imag) # removes tiny imaginary components 
                 
             else:
                 raise ValueError("mode must be 'in' or 'out'")
@@ -68,7 +71,7 @@ def Mpower_inout(a,mu_list,t_list,psi,ylim,savetrue,savename,colourline,mode="in
         plt.title(rf'Input $\psi_{{out}}$')
     if savetrue: 
         plt.savefig(f'C:/Users/annas/Documents/2026/Honours/Entangle_Magic/{savename}',bbox_inches='tight',dpi=300)
-    plt.show()
+    # plt.show()
     return np.array(magic_list_mu)
 
 

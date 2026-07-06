@@ -46,7 +46,7 @@ def Epower_inout(a,mu_list,t_list,psi,ylim,savetrue,savename,colourline,mode="in
         entanglement_list_mu.append(entanglement_list)
     plt.legend()
     plt.xlabel('Time',fontsize=11)
-    plt.ylabel(f'Entanglement power',fontsize=11)
+    plt.ylabel(f'Entanglement power of state',fontsize=11)
     plt.ylim(ylim)
     if mode == "in":
         plt.title(rf'$\psi_{{in}}=$[{psi[0]:.3g}, {psi[1]:.3g}, {psi[2]:.3g}, {psi[3]:.3g}]')
@@ -54,7 +54,7 @@ def Epower_inout(a,mu_list,t_list,psi,ylim,savetrue,savename,colourline,mode="in
         plt.title(rf'Input $\psi_{{out}}$')
     if savetrue: 
         plt.savefig(f'C:/Users/annas/Documents/2026/Honours/Entangle_Magic/{savename}',bbox_inches='tight',dpi=300)
-    plt.show()
+    # plt.show()
     return np.array(entanglement_list_mu)
 
 

@@ -10,9 +10,9 @@ def fourier(t_list,signal,xlim,numberpeaks):
     # multiply signal by cosine, with period T=4*signal length, f=2pi/T
     cos=1+np.cos(np.pi/((t_list[-1]-t_list[0])) *t_list)
     signal=signal*cos
-    plt.plot(t_list,signal)
-    plt.title('Signal*cosine')
-    plt.show()
+    # plt.plot(t_list,signal)
+    # plt.title('Signal*cosine')
+    # plt.show()
     
     fft=np.fft.fft(signal) # could add dtype float to np array so that ensured real numbers
     freq=np.fft.fftfreq(len(signal),d=dt)

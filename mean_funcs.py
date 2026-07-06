@@ -12,7 +12,7 @@ import cmath
 
 points=1000
 
-def meanEOM(t, U, mu):
+def meanEOM(t_list, U, mu):
     """
     This function defines the real equations of motion as per equation 7 and 8 of the paper
 
@@ -34,29 +34,30 @@ def meanEOM(t, U, mu):
     return [thetadot, phidot]
 
 #this is the one from the inline eq below eq 8
-def meanTraj_thetaphi(points, U_0, time_domain, mu):
+def meanTraj_thetaphi(points, U_0, t_list, mu):
     """
-    This function takes in the theta coordinate found in the previous function, and outputs the expectation value of the number operator as t changes
-    but t changing is built in to the solution of theta from the prev function
+    this function solves the eqations of motion for theta and phi
     """
 
-    #this one is confusing so ill explain it
-    sol = scipy.integrate.solve_ivp(meanEOM, (0,points), U_0, t_eval = time_domain, args = (mu,),method='LSODA')
+    sol = scipy.integrate.solve_ivp(meanEOM, (0,points), U_0, t_eval = t_list, args = (mu,),method='LSODA')
 
     theta=sol.y[0]
     phi=sol.y[1]
     """
-        realEOM is the function we are integrating - see above
+        meanEOM is the function we are integrating - see above
         (0,points) is the number of points we integrate over
-        U_0 is the initial guess, time_domain is the t linspace as per,
+        U_0 is the initial guess for theta and phi, t_list is the t linspace,
         and args takes in any arguments other than the t linspace and initial guess U_0 that need to be passed to the function (realEOM)
         in this case realEOM takes mu as an arg, so we pass it mu
         the .y at the end gives the solution, where each row of the .y corresponds to a variable (in this case theta or phi)
     """
     return theta,phi
 
+
 def meanTraj_LR(points, U_0, time_domain, mu):
     """
+    this function takes the solutions to theta and phi eqtns of motion, and translates them back into LR basis
+    
     Use phi=phiR-phiL so basically calculating exp(-i phiL)L and exp(-i phiL)R so that end up with no phase term on the L 
     and the phase term with phi on R
     """
@@ -68,14 +69,20 @@ def meanTraj_LR(points, U_0, time_domain, mu):
 
 
 def state(points, U_0, t_list, mu):
+    """
+    here we create the 4d array in LL LR RL RR basis, assuming both particles start in same state and evolve identically in mean field
+    """
     (L,R)=meanTraj_LR(points, U_0, t_list, mu)
     L=np.array(L)
     R=np.array(R)
-
     state=np.array([L*L,L*R,L*R,R*R])
     return state
 
 def N_L(points, U_0, t_list, mu):
+    """
+    here we calculate expectation value of N_L: number of particles in left well
+    """
+    
     state_ = state(points, U_0, t_list, mu)
     NL = np.array([[2,0,0,0],
             [0,1,0,0],
@@ -85,7 +92,6 @@ def N_L(points, U_0, t_list, mu):
     for n, t in enumerate(t_list) :
         state_t = np.array(state_[:,n])
         exNL.append(state_t.conj().T @ NL @ state_t)
-    
     exNL=np.array(exNL)
     return exNL
     

@@ -43,6 +43,7 @@ def N_L(a,mu_list,t_list,psi,savetrue,savename,mode="in"):
 
     plt.ylabel(fr'$\langle N_L \rangle$',fontsize=15)
     plt.xlabel('Time',fontsize=15)
+    plt.ylim(0,2)
     if savetrue:
         plt.savefig(f'C:/Users/annas/Documents/2026/Honours/Entangle_Magic/{savename}',bbox_inches='tight',dpi=300)
     # plt.show()

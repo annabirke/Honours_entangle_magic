@@ -24,7 +24,7 @@ def Epower_inout(a,mu_list,t_list,psi,ylim,savetrue,savename,colourline,mode="in
             elif mode == "out":
                 # now check if psiout is a 4dim vector, or already a 4x1000 object for each timestep 
                 if psi.ndim == 2:
-                    psiout = psi[:, n]
+                    psiout = psi[n,:]
                 else:
                     psioutt = psi
                 # this makes sure we only take the correct slice of psiout, ie at the correct timestep                
@@ -36,10 +36,11 @@ def Epower_inout(a,mu_list,t_list,psi,ylim,savetrue,savename,colourline,mode="in
             rhoa = np.trace(rhoab,axis1=1,axis2=3) # reduced density matrix for a, traces over second (index=1) and 4th index, which is particle b
             
             purity = np.trace(rhoa @ rhoa)
-            chopped_purity = complex(purity.real, 0 if abs(purity.imag) < 1e-10 else purity.imag) # removes tiny imaginary components which make the calculations hard
+            chopped_purity = complex(0 if abs(purity.real) < 1e-10 else purity.real, 0 if abs(purity.imag) < 1e-10 else purity.imag) # removes tiny imaginary components which make the calculations hard
             if purity.real<0:
                 print('neg purity for state i=',i)
             entanglement = 1-chopped_purity 
+            entanglement = (0 if abs(entanglement) < 1e-10 else entanglement) 
             entanglement_list.append(entanglement)
             
         plt.plot(t_list,entanglement_list,color=f'{colourline}',label=rf"$\mu=${mu}")
@@ -82,7 +83,7 @@ def Epower_S(a,mu_list,t_list,ylim,savetrue,savename,colourline):
                 rhoa = np.trace(rhoab,axis1=1,axis2=3) # reduced density matrix for a, traces over second (index=1) and 4th index which is b
                 
                 purity = np.trace(rhoa @ rhoa)
-                chopped_purity = complex(purity.real, 0 if abs(purity.imag) < 1e-10 else purity.imag) # removes tiny imaginary components which make the calculations hard
+                chopped_purity = complex(0 if abs(purity.real) < 1e-10 else purity.real, 0 if abs(purity.imag) < 1e-10 else purity.imag) # removes tiny imaginary components which make the calculations hard
                 if purity.real<0:
                     print('neg purity for state i=',i)
 

@@ -76,7 +76,9 @@ def state(points, U_0, t_list, mu):
     L=np.array(L)
     R=np.array(R)
     state=np.array([L*L,L*R,L*R,R*R])
+    state=state.T # so that same shape as when evolve the exact solutions 
     return state
+
 
 def N_L(points, U_0, t_list, mu):
     """
@@ -90,8 +92,11 @@ def N_L(points, U_0, t_list, mu):
             [0,0,0,0]])
     exNL=[]
     for n, t in enumerate(t_list) :
-        state_t = np.array(state_[:,n])
+        state_t = np.array(state_[n,:])
         exNL.append(state_t.conj().T @ NL @ state_t)
     exNL=np.array(exNL)
     return exNL
+
+
+# def LR_to_thphi():
     

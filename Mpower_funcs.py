@@ -46,7 +46,7 @@ def Mpower_inout(a,mu_list,t_list,psi,ylim,savetrue,savename,colourline,mode="in
             elif mode == "out":
                 # now check if psiout is a 4dim vector, or already a 4x1000 object for each timestep 
                 if psi.ndim == 2:
-                    psi_t = psi[:, n] # this makes sure we only take the correct slice of psiout, ie at the correct timestep
+                    psi_t = psi[n,:] # this makes sure we only take the correct slice of psiout, ie at the correct timestep
                 else:
                     psi_t = psi
                 

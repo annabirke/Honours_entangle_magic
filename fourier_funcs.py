@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt;
 from scipy.linalg import expm
 from scipy.signal import find_peaks
 
-def fourier(t_list,signal,xlim,numberpeaks):
+def fourier(t_list,signal,xlim,ylim,numberpeaks):
     dt=t_list[1]-t_list[0]
 
     # multiply signal by cosine, with period T=4*signal length, f=2pi/T
@@ -28,6 +28,7 @@ def fourier(t_list,signal,xlim,numberpeaks):
     plt.ylabel('Power of FFT')
     # plt.yscale('log')
     plt.xlim(xlim)
+    plt.ylim(ylim)
     
     #find peaks
     peaks, _ = find_peaks(power,height=1)
@@ -40,7 +41,7 @@ def fourier(t_list,signal,xlim,numberpeaks):
 
     # numberpeaks=-1 for all except last, or otherwise number of peaks
     for i in range(len(powerpeak[:numberpeaks])):
-        plt.axvline(freqpeak[i],ls='--',label=f'f={freqpeak[i]:.3g}')
+        plt.axvline(freqpeak[i],ls='--',label=f'f={freqpeak[i]:.4g}')
     plt.legend()
     plt.show()
     return freqpeak, powerpeak

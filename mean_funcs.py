@@ -26,7 +26,7 @@ def meanEOM(t_list, U, mu):
     
     #U is gonna be the theta and phi stored as a []
     theta, phi = U
-
+    
     #then define the functions
     thetadot = -1*np.sin(phi)
     phidot = np.tan(theta)*np.cos(phi)+mu*np.sin(theta)
@@ -39,14 +39,21 @@ def meanTraj_thetaphi(points, U_0, t_list, mu):
     this function solves the eqations of motion for theta and phi
     """
 
-    sol = scipy.integrate.solve_ivp(meanEOM, (0,points), U_0, t_eval = t_list, args = (mu,),method='LSODA')
+    sol = scipy.integrate.solve_ivp(meanEOM, (t_list[0],t_list[-1]), U_0, t_eval = t_list, args = (mu,),method='Radau') 
+    # LSODA and BDF methods were unstable and not conserving energy, Radau is much better
+    # RK45 is a non-stiff method, even worse
+    
+    if not sol.success:
+        raise RuntimeError(sol.message)
 
     theta=sol.y[0]
     phi=sol.y[1]
     """
         meanEOM is the function we are integrating - see above
-        (0,points) is the number of points we integrate over
-        U_0 is the initial guess for theta and phi, t_list is the t linspace,
+        (t_list[0],t_list[-1]) is the points we integrate over,
+        U_0 is the initial guess for theta and phi, 
+        t_eval is times at which to store computed soln
+        t_list is the t linspace,
         and args takes in any arguments other than the t linspace and initial guess U_0 that need to be passed to the function (realEOM)
         in this case realEOM takes mu as an arg, so we pass it mu
         the .y at the end gives the solution, where each row of the .y corresponds to a variable (in this case theta or phi)
@@ -94,9 +101,10 @@ def N_L(points, U_0, t_list, mu):
     for n, t in enumerate(t_list) :
         state_t = np.array(state_[n,:])
         exNL.append(state_t.conj().T @ NL @ state_t)
-    exNL=np.array(exNL)
-    return exNL
+    exNLmean=np.array(exNL)
+    return exNLmean
 
 
-# def LR_to_thphi():
-    
+def E(mu,theta,phi):
+    E = 1+mu/2*(1+np.sin(theta)**2)-np.cos(theta)*np.cos(phi)    
+    return E

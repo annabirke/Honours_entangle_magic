@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    159365,       4106]
-NotebookOptionsPosition[    157037,       4058]
-NotebookOutlinePosition[    157479,       4075]
-CellTagsIndexPosition[    157436,       4072]
+NotebookDataLength[    159669,       4115]
+NotebookOptionsPosition[    157242,       4066]
+NotebookOutlinePosition[    157684,       4083]
+CellTagsIndexPosition[    157641,       4080]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -4054,7 +4054,15 @@ Cell[BoxData[
  CellLabel->
   "Out[566]=",ExpressionUUID->"16fa1b67-cf07-4799-9830-04fa318aac10"]
 }, Open  ]]
-}, Open  ]]
+}, Open  ]],
+
+Cell["\<\
+
+Still need to generalise this to N particles!\
+\>", "Subtitle",
+ CellChangeTimes->{{3.995592100547415*^9, 
+  3.9955921149562674`*^9}},ExpressionUUID->"198063a7-a6f1-402b-b6b7-\
+4f9150e88390"]
 },
 WindowSize->{960., 532.5},
 WindowMargins->{{-4.875, Automatic}, {Automatic, -4.875}},
@@ -4107,7 +4115,8 @@ Cell[CellGroupData[{
 Cell[154099, 3981, 2355, 55, 129, "Input",ExpressionUUID->"ac8565ce-757f-435e-a847-d9af34431eca"],
 Cell[156457, 4038, 552, 16, 44, "Output",ExpressionUUID->"16fa1b67-cf07-4799-9830-04fa318aac10"]
 }, Open  ]]
-}, Open  ]]
+}, Open  ]],
+Cell[157036, 4058, 202, 6, 76, "Subtitle",ExpressionUUID->"198063a7-a6f1-402b-b6b7-4f9150e88390"]
 }
 ]
 *)

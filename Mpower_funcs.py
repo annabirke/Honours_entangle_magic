@@ -19,7 +19,6 @@ def M2(psiout):
 
     # 2 particle density matrix
     rho=np.outer(psiout,psiout.conj())
-    
     for i in range(4):
         for j in range(4):
             P=np.kron(pauli[i],pauli[j])
@@ -189,3 +188,35 @@ def Mpower_S(a,mu_list,t_list,ylim,savetrue,savename,colourline):
     plt.show()
 
     return np.array(magic_list_mu)
+
+def Mpower_rho(rho):
+    if rho.ndim>3:
+        raise AttributeError('Need rho shape to be (x,x,t)')
+    if rho.shape[0] != rho.shape[1]:
+        raise AttributeError('Need time axis to be at the end of rho shape')
+    
+    # for SRE
+    traces=[]
+
+    # Pauli spin operators
+    I=np.array([[1,0],[0,1]])
+    X=np.array([[0,1],[1,0]])
+    Y=np.array([[0,-1j],[1j,0]])
+    Z=np.array([[1,0],[0,-1]])
+    pauli=np.array([I,X,Y,Z])
+
+    # 2 particle density matrix
+    ''' NEED TO MAKE THIS 4x4 TO MATCH kron(pauli,pauli) FOR 2BODY OR EQUIVALENT FOR 3BODY'''
+    # rho_q = 
+    
+    for i in range(4):
+        for j in range(4):
+            P=np.kron(pauli[i],pauli[j])
+            trace=np.einsum('ijt,jk-<ikt',rho_q,P)**4
+            traces.append(trace)
+    xi2=1/4*np.sum(traces)
+    xi2=complex(xi2.real, 0 if abs(xi2.imag) < 1e-10 else xi2.imag) # removes tiny imaginary components which make the calculations hard
+    M2=-np.log(xi2)
+    chopped_M2=complex(M2.real, 0 if abs(M2.imag) < 1e-10 else M2.imag) # removes tiny imaginary components which make the calculations hard
+    return chopped_M2
+    

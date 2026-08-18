@@ -3,11 +3,13 @@ import pandas as pd
 import matplotlib.pyplot as plt;
 from scipy.linalg import expm
 from scipy.signal import find_peaks
+import heapq
+
 import toymodel_funcs
 import Mpower_funcs
 
 def Epower_inout(a,mu_list,t_list,psi,ylim,savetrue,savename,colourline,mode="in"):
-    plt.figure(figsize=(10,4))
+    plt.figure(figsize=(6,4))
     entanglement_list_mu=[]
     for k, mu in enumerate(mu_list) :
         entanglement_list = []
@@ -45,14 +47,16 @@ def Epower_inout(a,mu_list,t_list,psi,ylim,savetrue,savename,colourline,mode="in
             
         plt.plot(t_list,entanglement_list,color=f'{colourline}',label=rf"$\mu=${mu}")
         entanglement_list_mu.append(entanglement_list)
-    plt.legend()
+    # plt.legend()
     plt.xlabel('Time',fontsize=11)
-    plt.ylabel(f'Entanglement power of state',fontsize=11)
+    # plt.ylabel(f'Entanglement power of state',fontsize=11)
+    plt.ylabel(f'Entanglement',fontsize=11)
     plt.ylim(ylim)
-    if mode == "in":
-        plt.title(rf'$\psi_{{in}}=$[{psi[0]:.3g}, {psi[1]:.3g}, {psi[2]:.3g}, {psi[3]:.3g}]')
-    elif mode == "out":
-        plt.title(rf'Input $\psi_{{out}}$')
+    plt.axhline(y=0.5,c='k',ls='--') # maximal possible magic for two-qubit state, from Liu2026
+    # if mode == "in":
+    #     plt.title(rf'$\psi_{{in}}=$[{psi[0]:.3g}, {psi[1]:.3g}, {psi[2]:.3g}, {psi[3]:.3g}]')
+    # elif mode == "out":
+    #     plt.title(rf'Input $\psi_{{out}}$')
     if savetrue: 
         plt.savefig(f'C:/Users/annas/Documents/2026/Honours/Entangle_Magic/{savename}',bbox_inches='tight',dpi=300)
     # plt.show()
@@ -104,3 +108,13 @@ def Epower_S(a,mu_list,t_list,ylim,savetrue,savename,colourline):
     plt.show()
     return np.array(entanglement_list_mu)
 
+
+def Epower_rho(rho,P):
+    # I use this in TDDM lipkin calcs, where i have 1body rho over time with shape (2*P,2*P,t)
+    assert rho.ndim==3
+    purity = np.einsum('ijt,jit->t',rho,rho)
+    Epower = P - purity
+    print('largest purity values (should <N):',heapq.nlargest(3, purity))
+    largest_indices = heapq.nlargest(3, range(len(purity)), key=purity.__getitem__)
+    print('indices of these:',largest_indices)
+    return Epower

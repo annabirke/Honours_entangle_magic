@@ -1,22 +1,19 @@
-# Jupyter
-.ipynb_checkpoints/
+# Whitelist: ignore everything at the Honours root by default, and only
+# allow the three project folders (and this file) into the repository.
+# Anything else added to this Honours folder in future stays invisible to
+# git, even via a careless `git add .` from the root.
+/*
+!/Entangle_Magic/
+!/2slaterforclaude/
+!/TDDMclaude/
+!/.gitignore
 
-# Python
-__pycache__/
+# junk and per-machine files within the whitelisted folders
+**/__pycache__/
 *.pyc
-
-# Data files (optional)
-*.csv
-*.xlsx
-
-# Large models / outputs
-*.h5
-*.pkl
-
-# OS files
-.DS_Store
-Thumbs.db
-
-
-git token.txt
-
+/2slaterforclaude/.claude/
+/2slaterforclaude/.vscode/
+/TDDMclaude/*.bak
+/TDDMclaude/*.bak2
+/TDDMclaude/*.bak3
+/TDDMclaude/*.premerge*

@@ -17,3 +17,7 @@
 /TDDMclaude/*.bak2
 /TDDMclaude/*.bak3
 /TDDMclaude/*.premerge*
+
+# cached solve_ivp solutions -- these are hundreds of MB to several GB each
+/TDDMclaude/solutions/
+*.npz

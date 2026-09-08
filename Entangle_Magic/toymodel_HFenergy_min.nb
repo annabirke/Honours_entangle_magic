@@ -1,0 +1,145 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      4254,        135]
+NotebookOptionsPosition[      3765,        118]
+NotebookOutlinePosition[      4174,        134]
+CellTagsIndexPosition[      4131,        131]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"En", "[", 
+   RowBox[{"th_", ",", "ph_"}], "]"}], " ", ":=", " ", 
+  RowBox[{"1", " ", "+", 
+   RowBox[{
+    RowBox[{"m", "/", "2"}], 
+    RowBox[{"(", 
+     RowBox[{"1", "+", 
+      RowBox[{
+       RowBox[{"Sin", "[", "th", "]"}], "^", "2"}]}], ")"}]}], "-", 
+   RowBox[{
+    RowBox[{"Cos", "[", "th", "]"}], 
+    RowBox[{"Cos", "[", "ph", "]"}]}]}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"ph", "=", "0"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"FullSimplify", "[", 
+  RowBox[{"Solve", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"D", "[", 
+      RowBox[{
+       RowBox[{"En", "[", 
+        RowBox[{"th", ",", "ph"}], "]"}], ",", "th"}], "]"}], "==", "0"}], 
+    ",", "th"}], "]"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.9976800013025413`*^9, 3.997680114619176*^9}, {
+  3.997680186735178*^9, 3.9976801906633186`*^9}, {3.9976802276481705`*^9, 
+  3.9976802345901985`*^9}},
+ CellLabel->"In[7]:=",ExpressionUUID->"5bef6bad-11e7-4dac-8a97-ee5f0470d2a3"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"th", "\[Rule]", 
+     TemplateBox[{
+       RowBox[{"2", " ", "\[Pi]", " ", 
+         TemplateBox[{"1"}, "C"]}], 
+       RowBox[{
+         TemplateBox[{"1"}, "C"], "\[Element]", 
+         TemplateBox[{}, "Integers"]}]},
+      "ConditionalExpression"]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"th", "\[Rule]", 
+     TemplateBox[{
+       RowBox[{"\[Pi]", "+", 
+         RowBox[{"2", " ", "\[Pi]", " ", 
+           TemplateBox[{"1"}, "C"]}]}], 
+       RowBox[{
+         TemplateBox[{"1"}, "C"], "\[Element]", 
+         TemplateBox[{}, "Integers"]}]},
+      "ConditionalExpression"]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"th", "\[Rule]", 
+     TemplateBox[{
+       RowBox[{
+         RowBox[{"ArcTan", "[", 
+           RowBox[{
+             RowBox[{"-", 
+               FractionBox["1", "m"]}], ",", 
+             RowBox[{"-", 
+               FractionBox[
+                SqrtBox[
+                 RowBox[{
+                   RowBox[{"-", "1"}], "+", 
+                   SuperscriptBox["m", "2"]}]], "m"]}]}], "]"}], "+", 
+         RowBox[{"2", " ", "\[Pi]", " ", 
+           TemplateBox[{"1"}, "C"]}]}], 
+       RowBox[{
+         TemplateBox[{"1"}, "C"], "\[Element]", 
+         TemplateBox[{}, "Integers"]}]},
+      "ConditionalExpression"]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"th", "\[Rule]", 
+     TemplateBox[{
+       RowBox[{
+         RowBox[{"ArcTan", "[", 
+           RowBox[{
+             RowBox[{"-", 
+               FractionBox["1", "m"]}], ",", 
+             FractionBox[
+              SqrtBox[
+               RowBox[{
+                 RowBox[{"-", "1"}], "+", 
+                 SuperscriptBox["m", "2"]}]], "m"]}], "]"}], "+", 
+         RowBox[{"2", " ", "\[Pi]", " ", 
+           TemplateBox[{"1"}, "C"]}]}], 
+       RowBox[{
+         TemplateBox[{"1"}, "C"], "\[Element]", 
+         TemplateBox[{}, "Integers"]}]},
+      "ConditionalExpression"]}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{{3.99768010483319*^9, 3.9976801170069895`*^9}, 
+   3.9976801920804863`*^9, 3.997680235247652*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"aa96af2a-3833-4cde-966a-8c6aa1d1322c"]
+}, Open  ]]
+},
+WindowSize->{510., 526.875},
+WindowMargins->{{-4.125, Automatic}, {Automatic, 0}},
+FrontEndVersion->"13.2 for Microsoft Windows (64-bit) (January 30, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"2cddeded-e990-4356-bf12-e65ede80607f"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 997, 28, 67, "Input",ExpressionUUID->"5bef6bad-11e7-4dac-8a97-ee5f0470d2a3"],
+Cell[1580, 52, 2169, 63, 151, "Output",ExpressionUUID->"aa96af2a-3833-4cde-966a-8c6aa1d1322c"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

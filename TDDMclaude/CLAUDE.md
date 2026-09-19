@@ -129,8 +129,12 @@ The notebook already has cells for each; they are the whole safety net, since th
 4. Hermiticity of `ρ1` and `ρ2`.
 5. Trace relation `Σ_b ρ2[a,b,a',b] = (N-1) n[a,a']` — the `residual` from `lower_occupation`.
 6. For TDHF only: idempotency `ρ² = ρ`.
-7. Against exact: `LipkinDicke` evolves in the `(P+1)`-dim Dicke basis; the 3-particle full-space
-   `expm` evolution in the "Lipkin exact evolution" section is the other cross-check.
+7. Against exact: `LipkinDicke` evolves in the `(P+1)`-dim Dicke basis. **This is the trustworthy
+   one** — verified against a full `2^(2P)` Fock-space `expm` evolution to 1e-14 (2026-09-11).
+   The 3-particle first-quantised `expm` evolution in the old "Lipkin exact evolution" section
+   (and the same cell in `TDDM_Lipkin_6August_claude.ipynb`) is **broken**: its `H` is
+   `h0(1) + v(12)`, missing `h0(2)`, `h0(3)`, `v(13)`, `v(23)`. It is not exchange-symmetric, so
+   it does not even preserve antisymmetry. Don't use it as a cross-check until fixed.
 
 Plot convention when comparing the three methods:
 `Exact = mediumvioletred`, `TDDM = darkorange`, `Mean-field = 'b'`.

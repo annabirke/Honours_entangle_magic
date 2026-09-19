@@ -39,7 +39,12 @@ def meanTraj_thetaphi(points, U_0, t_list, mu):
     this function solves the eqations of motion for theta and phi
     """
 
-    sol = scipy.integrate.solve_ivp(meanEOM, (t_list[0],t_list[-1]), U_0, t_eval = t_list, args = (mu,),method='Radau') 
+    sol = scipy.integrate.solve_ivp(meanEOM, 
+                                    (t_list[0],t_list[-1]), 
+                                    U_0, 
+                                    t_eval = t_list, 
+                                    args = (mu,), 
+                                    method='Radau') 
     # LSODA and BDF methods were unstable and not conserving energy, Radau is much better
     # RK45 is a non-stiff method, even worse
     

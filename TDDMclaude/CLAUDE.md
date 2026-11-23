@@ -92,6 +92,22 @@ d_c2 = εC + Cε terms  +  Bterm + Pterm + Hterm  [+ Tterm]
   `TRUNCATION = 'TDDM'`, so no `M⁶` array is ever allocated. `'TDDM1'`/`'TDDM2'` raise
   `NotImplementedError`; those are the next thing to build.
 
+## Parameters — one place only
+
+`P`, `chi`, `eps`, `V` and `a_dhf` are set together by `set_params(P_, chi_, eps_=1)` at the end
+of the TDDM cell, and **nowhere else**. `V = -chi*eps/(P-1)` and `a_dhf = 0.5*arccos(1/chi)` are
+derived, so assigning `P` or `chi` by hand leaves them stale: the Hamiltonian and the initial
+state then belong to different parameters and nothing raises. This silently corrupted the
+multi-`chi` exact plots until 2026-10-14 (all curves identical, effective `chi = 0.67`).
+
+- To change parameters: edit the `set_params(...)` call, then re-run the cells below it.
+- For scans over `P` or `chi`: use `exact_dicke(P, chi, t_list, eps)`, which derives everything
+  from its arguments and reads no globals. Use scan-local names (`P_scan`, `chi_scan`, `ts_scan`),
+  never `P`, `chi` or `t_list`.
+- `Hdicke(P)` takes `P` but still reads the global `V`; only call it with the global `P`.
+- Physics note, so it isn't mistaken for a bug again: at small `N` (≤ 4) the exact tunnelling
+  gets *faster* with larger `chi`; the exponential slowdown with `chi` only appears from `N ≈ 8`.
+
 ## Performance conventions
 
 Two caches exist because the RHS is called thousands of times per integration:

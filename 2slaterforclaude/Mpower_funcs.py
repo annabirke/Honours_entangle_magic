@@ -6,6 +6,7 @@ from scipy.signal import find_peaks
 # import toymodel_funcs
 
 
+
 def M2(psiout):
     # for SRE
     traces=[]
